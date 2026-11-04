@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Meadow Goods store (demonstration) | Saturn Technologies</title>
+<link rel="stylesheet" href="/demos/_shared/demo.css">
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<div class="demo-banner"><span><strong>Demonstration project by Saturn Technologies.</strong> Fictional store. No payments are taken and nothing is saved.</span><a href="/our-work">Back to Our Work</a></div>
+<header class="top"><div class="w"><a class="logo" href="#">Meadow Goods</a><button class="cartbtn" id="open-cart" type="button" aria-expanded="false" aria-controls="cart">Cart <span id="count" class="count">0</span></button></div></header>
+<main class="w">
+  <section class="intro"><h1>Everyday goods, simply made.</h1><p>A concept storefront with a product grid, category filters and a working cart.</p></section>
+  <div class="chips" role="group" aria-label="Filter by category"><button class="chip on" data-cat="all" type="button">All</button><button class="chip" data-cat="bags" type="button">Bags</button><button class="chip" data-cat="home" type="button">Home</button><button class="chip" data-cat="stationery" type="button">Stationery</button></div>
+  <ul class="grid" id="grid"></ul>
+</main>
+<aside class="cart" id="cart" aria-label="Shopping cart" hidden>
+  <div class="ch"><h2>Your cart</h2><button id="close-cart" type="button" class="x" aria-label="Close cart">×</button></div>
+  <ul id="lines" class="lines"></ul>
+  <p id="cart-empty" class="cempty">Your cart is empty.</p>
+  <div class="tot"><span>Total</span><b id="total">₹0</b></div>
+  <button class="btn dis" type="button" disabled>Checkout unavailable in demo</button>
+  <p class="fine">No real payments are taken in this demonstration.</p>
+</aside>
+<script src="demo.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Dashboard | Saturn Technologies</title>
+<meta name="description" content="Manage your training programme details, referral code, and fee payments from your personal dashboard.">
+<link rel="canonical" href="https://websites-software-business-grow.vercel.app/training/dashboard">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#061f3d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Saturn Technologies India Private Limited">
+<meta property="og:title" content="Student Dashboard | Saturn Technologies">
+<meta property="og:description" content="Manage your training programme details, referral code, and fee payments from your personal dashboard.">
+<meta property="og:url" content="https://websites-software-business-grow.vercel.app/training/dashboard">
+<meta property="og:image" content="https://websites-software-business-grow.vercel.app/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/inter-Regular.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-ExtraBold.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="/assets/css/styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Saturn Technologies India Private Limited","url":"https://websites-software-business-grow.vercel.app/","logo":"https://websites-software-business-grow.vercel.app/assets/img/apple-touch-icon.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://websites-software-business-grow.vercel.app/"},{"@type":"ListItem","position":2,"name":"Training & Internship","item":"https://websites-software-business-grow.vercel.app/training"},{"@type":"ListItem","position":3,"name":"Student Dashboard","item":"https://websites-software-business-grow.vercel.app/training/dashboard"}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Saturn Technologies home">
+      <span class="mark" aria-hidden="true"><i class="ring"></i><i class="sym"></i></span>
+      <span class="wm"><b>SATURN</b><small>TECHNOLOGIES</small></span>
+    </a>
+    <nav aria-label="Main"><ul id="site-nav"><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li><a href="/our-work">Our Work</a></li><li><a href="/hosting">Hosting</a></li><li><a href="/about">About</a></li><li><a href="/training" aria-current="page">Training</a></li><li><a href="/contact">Contact</a></li></ul></nav>
+    <a class="btn sm nav-cta" href="/contact">Free Consultation</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <div class="wrap">
+    <ol class="crumbs" aria-label="Breadcrumb"><li><a href="/">Home</a></li><li><a href="/training">Training &amp; Internship</a></li><li aria-current="page">Student Dashboard</li></ol>
+    <h1>Student Dashboard</h1>
+    <p>Access your training programme details, referral code, and fee payments.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="dash-layout" id="dashboard-container">
+
+      <!-- Left Sidebar (ONLY Referral Code and My Payments) -->
+      <aside class="dash-sidebar" aria-label="Student menu">
+        <div class="dash-profile">
+          <span class="badge">Student</span>
+          <div class="dash-profile-email" id="dash-email">Loading account...</div>
+          <div class="dash-profile-meta" id="dash-meta"></div>
+        </div>
+
+        <nav class="dash-nav" aria-label="Dashboard navigation">
+          <ul class="dash-nav-list">
+            <li>
+              <button type="button" class="dash-nav-item active" id="btn-tab-referral" data-view="referral" aria-current="page">
+                <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8z"/><path d="M7 7h.01"/></svg> <span>Referral Code</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dash-nav-item" id="btn-tab-payments" data-view="payments">
+                <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/></svg> <span>My Payments</span>
+              </button>
+            </li>
+            <li>
+              <button type="button" class="dash-nav-item" id="btn-tab-materials" data-view="materials">
+                <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg> <span>Materials</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="dash-sidebar-footer">
+          <button type="button" class="btn outline sm block" id="btn-logout">
+            Log Out <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="dash-main" id="dash-content-area">
+
+        <!-- Referral Code View -->
+        <section class="dash-view" id="view-referral" aria-labelledby="heading-referral">
+          <div class="dash-view-header">
+            <h2 id="heading-referral">Referral Code &amp; Rewards</h2>
+            <p class="sub">Share your referral code with peers. Earn ₹1,000 for every student who enrolls and completes payment.</p>
+          </div>
+
+          <!-- Referral Code Card -->
+          <div class="card ref-code-card">
+            <div class="ref-code-top">
+              <span class="badge">Your Referral Code</span>
+              <p class="ref-code-lead">Share this unique code or registration link with friends. When they register and complete their course payment, a ₹1,000 referral reward is added to your account.</p>
+            </div>
+
+            <div class="ref-code-display-row">
+              <div class="ref-code-badge-wrap">
+                <span class="ref-code-value" id="dash-ref-code">Loading…</span>
+              </div>
+              <div class="ref-code-actions">
+                <button type="button" class="btn sm" id="btn-copy-ref" title="Copy referral code to clipboard">
+                  <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> <span id="copy-btn-label">Copy Code</span>
+                </button>
+                <button type="button" class="btn sm outline" id="btn-share-ref" title="Share via device sharing">
+                  <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> <span>Share</span>
+                </button>
+                <a class="btn sm outline btn-wa-share" id="btn-wa-share" href="#" target="_blank" rel="noopener noreferrer" title="Share directly on WhatsApp">
+                  <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="ref-notice" id="ref-notice-box">
+              <small>Referral rewards are permanently recorded upon verified payment. Rewards are credited to your withdrawable balance after review.</small>
+            </div>
+          </div>
+
+          <!-- Referral Summary Stats -->
+          <div class="ref-stats-grid">
+            <div class="card ref-stat-card">
+              <div class="ref-stat-label">Total Successful Referrals</div>
+              <div class="ref-stat-num" id="stat-total-referrals">0</div>
+              <div class="ref-stat-sub">Enrolled &amp; paid peers</div>
+            </div>
+            <div class="card ref-stat-card">
+              <div class="ref-stat-label">Total Referral Rewards</div>
+              <div class="ref-stat-num" id="stat-total-rewards">₹0</div>
+              <div class="ref-stat-sub">₹1,000 per referral</div>
+            </div>
+            <div class="card ref-stat-card ref-stat-highlight">
+              <div class="ref-stat-label">Withdrawable Balance</div>
+              <div class="ref-stat-num accent" id="stat-withdrawable-balance">₹0</div>
+              <div class="ref-stat-sub">Credited balance only</div>
+            </div>
+          </div>
+
+          <!-- Referral History Card -->
+          <div class="card ref-history-card">
+            <div class="ref-history-head">
+              <h3>Referral History</h3>
+              <p class="sub">Complete record of students who enrolled using your referral code.</p>
+            </div>
+
+            <div class="ref-table-wrap" id="ref-table-wrap" hidden>
+              <table class="ref-table" id="ref-history-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Referred Student</th>
+                    <th scope="col">Referral Date</th>
+                    <th scope="col">Reward Amount</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="ref-history-tbody">
+                  <!-- Dynamically populated from backend -->
+                </tbody>
+              </table>
+            </div>
+
+            <div class="ref-empty-state" id="ref-empty-state">
+              <div class="icon"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
+              <h4>No referrals yet</h4>
+              <p>You haven't referred any students yet. Share your referral code above to start earning ₹1,000 per course enrollment.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- My Payments View -->
+        <section class="dash-view" id="view-payments" aria-labelledby="heading-payments" hidden>
+          <div class="dash-view-header">
+            <h2 id="heading-payments">My Payments</h2>
+            <p class="sub">Your course registration payments, transaction receipts, and payment status.</p>
+          </div>
+          <div id="payments-history-area">
+            <div class="card dash-card" id="payments-placeholder-card">
+              <div class="icon"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/></svg></div>
+              <h3>Payment Records</h3>
+              <p>Your payment details and fee records will be displayed here once your course payment is processed.</p>
+              <div class="dash-card-footer">
+                <a class="btn sm" href="/training/course-registration">Go to Course Registration <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Materials View (Feature 3: Online PDF Materials) -->
+        <section class="dash-view" id="view-materials" aria-labelledby="heading-materials" hidden>
+          <div class="dash-view-header">
+            <h2 id="heading-materials">Materials</h2>
+            <p class="sub">Official learning resources, curriculum guides, and module lecture notes for your enrolled course.</p>
+          </div>
+
+          <!-- Protected Online Reading Notice -->
+          <div class="materials-notice-card card">
+            <div class="materials-notice-icon"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 8 5-3 5 3-1.5-8"/></svg></div>
+            <div class="materials-notice-content">
+              <h4>Protected Course Documents</h4>
+              <p>These study materials are strictly authorized for online viewing by enrolled students of the Java Full Stack Training Programme. Downloading and printing are disabled to preserve curriculum integrity.</p>
+            </div>
+            <div class="materials-notice-badge">
+              <span class="badge ok">Online Access Active</span>
+            </div>
+          </div>
+
+          <!-- Materials Catalog Grid -->
+          <div class="materials-grid" id="materials-grid">
+            <div class="card dash-card materials-loading" id="materials-loading-card">
+              <div class="icon"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg></div>
+              <h3>Loading Course Materials…</h3>
+              <p>Retrieving verified curriculum documents for your enrolled training programme.</p>
+            </div>
+          </div>
+
+          <!-- Empty state fallback -->
+          <div class="card dash-card" id="materials-empty-card" hidden>
+            <div class="icon"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg></div>
+            <h3>No Materials Available</h3>
+            <p>Course materials are currently being prepared for your cohort and will be accessible shortly.</p>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Official Printable Payment Receipt Modal -->
+  <div id="receipt-modal-backdrop" class="receipt-modal-backdrop no-print" hidden>
+    <div class="receipt-modal-card">
+      <div class="receipt-modal-head no-print">
+        <div class="receipt-modal-title">
+          <h3>Official Payment Receipt</h3>
+          <span class="badge ok">Verified Payment</span>
+        </div>
+        <div class="receipt-modal-actions">
+          <button type="button" class="btn sm" id="modal-btn-print">
+            <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Print Receipt
+          </button>
+          <button type="button" class="btn sm outline" id="modal-btn-download">
+            <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Download PDF
+          </button>
+          <button type="button" class="btn-receipt-close" id="modal-btn-close" aria-label="Close receipt modal">
+            <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Printable Document -->
+      <div class="printable-receipt" id="printable-receipt">
+        <div class="receipt-top-bar">
+          <div class="receipt-company-brand">
+            <span class="mark" aria-hidden="true"><i class="ring"></i><i class="sym"></i></span>
+            <div class="receipt-company-titles">
+              <span class="receipt-brand-name">SATURN TECHNOLOGIES</span>
+              <span class="receipt-brand-legal">Saturn Technologies India Private Limited</span>
+              <small class="receipt-brand-contact">support@saturn.in • www.saturn.in</small>
+            </div>
+          </div>
+          <div class="receipt-meta-box">
+            <span class="receipt-doc-tag">TAX INVOICE / RECEIPT</span>
+            <p><strong>Receipt No:</strong> <span id="r-number">SATURN-REC-2026-0001</span></p>
+            <p><strong>Date &amp; Time:</strong> <span id="r-date">03 Nov 2026, 11:28 PM</span></p>
+            <p><strong>Payment Status:</strong> <span class="badge ok" id="r-status-badge">SUCCESSFUL</span></p>
+          </div>
+        </div>
+
+        <div class="receipt-divider"></div>
+
+        <div class="receipt-info-grid">
+          <div class="receipt-info-col">
+            <small class="receipt-sublabel">BILLED TO (STUDENT)</small>
+            <h4 id="r-student-email">student@saturn.in</h4>
+            <p id="r-student-meta">B.Tech Computer Science • Saturn Institute of Technology</p>
+            <p id="r-student-phone">Contact: +91 9876543210</p>
+          </div>
+          <div class="receipt-info-col">
+            <small class="receipt-sublabel">TRANSACTION DETAILS</small>
+            <p><strong>Transaction ID:</strong> <span id="r-payment-id">cf_pay_12345</span></p>
+            <p><strong>Order ID:</strong> <span id="r-order-id">order_12345</span></p>
+            <p><strong>Payment Mode:</strong> <span id="r-method">UPI</span></p>
+            <p><strong>Gateway:</strong> Cashfree Payments (Verified)</p>
+          </div>
+        </div>
+
+        <table class="receipt-table">
+          <thead>
+            <tr>
+              <th scope="col" style="width:48%">Course Description</th>
+              <th scope="col" style="width:20%">Academic Batch</th>
+              <th scope="col" style="width:16%">Course Fee</th>
+              <th scope="col" style="width:16%;text-align:right">Amount (INR)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong id="r-course-name">Java Full Stack Training Programme</strong>
+                <small class="receipt-course-desc">Industry-oriented programme covering Core Java, REST APIs, Frontend, Database, and Live Project Development.</small>
+              </td>
+              <td>2026 Batch</td>
+              <td>₹5,000.00</td>
+              <td style="text-align:right">₹4,237.29</td>
+            </tr>
+            <tr class="receipt-tax-row">
+              <td colspan="3" style="text-align:right">CGST (9%):</td>
+              <td style="text-align:right">₹381.35</td>
+            </tr>
+            <tr class="receipt-tax-row">
+              <td colspan="3" style="text-align:right">SGST (9%):</td>
+              <td style="text-align:right">₹381.36</td>
+            </tr>
+            <tr class="receipt-total-row">
+              <td colspan="3" style="text-align:right"><strong>Total Amount Paid:</strong></td>
+              <td style="text-align:right"><strong class="receipt-total-val">₹5,000.00</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="receipt-bottom-grid">
+          <div class="receipt-notes-col">
+            <p><strong>Payment Confirmation:</strong> This document confirms official receipt of payment for the course enrolment. This is a computer-generated tax invoice verified through our payment gateway. No physical signature is required.</p>
+            <p class="receipt-footer-links">support@saturn.in • www.saturn.in • CIN: U72900AP2026PTC000000</p>
+          </div>
+          <div class="receipt-seal-col">
+            <div class="receipt-seal-stamp">
+              <span class="seal-line-1">VERIFIED &amp; PAID</span>
+              <span class="seal-line-2">SATURN TECHNOLOGIES</span>
+              <small class="seal-line-3">OFFICIAL RECEIPT</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embedded Online PDF Reader Modal (Feature 3: Online-only, No download, No print) -->
+  <div id="pdf-viewer-modal" class="pdf-viewer-overlay no-print" hidden role="dialog" aria-modal="true" aria-labelledby="pdf-doc-title">
+    <div class="pdf-viewer-container">
+      
+      <!-- Top Viewer Toolbar (Navigation and Zoom ONLY, Zero download or print controls) -->
+      <header class="pdf-viewer-toolbar no-print">
+        <div class="pdf-toolbar-left">
+          <button type="button" class="btn sm outline btn-pdf-back" id="pdf-btn-back" title="Back to Materials">
+            <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg> Back to Materials
+          </button>
+          <div class="pdf-doc-meta">
+            <h3 id="pdf-doc-title" class="pdf-doc-title">Course Document</h3>
+            <span class="badge" id="pdf-doc-category">Curriculum</span>
+          </div>
+        </div>
+
+        <!-- Center: Page Navigation -->
+        <div class="pdf-toolbar-center" aria-label="Page navigation">
+          <button type="button" class="btn-pdf-nav" id="pdf-btn-prev" aria-label="Previous page" title="Previous page (Left arrow)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <div class="pdf-page-indicator" aria-live="polite">
+            Page <span id="pdf-page-num" class="pdf-page-num">1</span> of <span id="pdf-page-count" class="pdf-page-count">1</span>
+          </div>
+          <button type="button" class="btn-pdf-nav" id="pdf-btn-next" aria-label="Next page" title="Next page (Right arrow)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+
+        <!-- Right: Zoom Controls & Close -->
+        <div class="pdf-toolbar-right" aria-label="Zoom controls">
+          <button type="button" class="btn-pdf-nav" id="pdf-btn-zoom-out" aria-label="Zoom out" title="Zoom out (-)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <span class="pdf-zoom-level" id="pdf-zoom-level" title="Current zoom">100%</span>
+          <button type="button" class="btn-pdf-nav" id="pdf-btn-zoom-in" aria-label="Zoom in" title="Zoom in (+)">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+          <button type="button" class="btn sm outline btn-pdf-fit" id="pdf-btn-zoom-fit" title="Fit to width">
+            Fit Width
+          </button>
+          <button type="button" class="btn-receipt-close" id="pdf-btn-close" aria-label="Close document viewer">
+            <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- PDF Canvas Viewport Area -->
+      <div class="pdf-viewport" id="pdf-viewport" tabindex="0">
+        <!-- Loading State -->
+        <div class="pdf-loading-state" id="pdf-loading">
+          <div class="pdf-spinner" aria-hidden="true"></div>
+          <p>Loading document securely…</p>
+        </div>
+
+        <!-- Error State -->
+        <div class="pdf-error-state" id="pdf-error" hidden>
+          <p id="pdf-error-msg">Unable to load document.</p>
+          <button type="button" class="btn sm" id="pdf-btn-retry">Retry</button>
+        </div>
+
+        <!-- Canvas Container -->
+        <div class="pdf-canvas-wrapper" id="pdf-canvas-wrapper">
+          <canvas id="pdf-canvas" role="img" aria-label="PDF Document Page Canvas"></canvas>
+          <div class="pdf-watermark-overlay" id="pdf-watermark-overlay" aria-hidden="true">
+            <span>Saturn Technologies • Online Reading Copy • Authorized Student Access</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Security Statusbar -->
+      <footer class="pdf-statusbar no-print">
+        <span class="pdf-security-tag">Protected Course Material • Online Viewing Only • Downloads &amp; Printing are disabled</span>
+        <span class="pdf-nav-hint">Use arrow keys or scroll to read</span>
+      </footer>
+
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="/" aria-label="Saturn Technologies home">
+      <span class="mark" aria-hidden="true"><i class="ring"></i><i class="sym"></i></span>
+      <span class="wm"><b>SATURN</b><small>TECHNOLOGIES</small></span>
+    </a>
+        <p>Software development, websites, web applications, e-commerce, hosting and IT services for growing businesses.</p>
+        
+      </div>
+      <div>
+        <h2>Services</h2>
+        <ul><li><a href="/services/website-development">Website Development</a></li><li><a href="/services/web-application-development">Custom Web Application Development</a></li><li><a href="/services/ecommerce-development">E-commerce Development</a></li><li><a href="/services/web-hosting">Web Hosting Solutions</a></li><li><a href="/services/ui-ux-design">UI/UX Design</a></li><li><a href="/services/it-support-maintenance">IT Support and Maintenance</a></li></ul>
+      </div>
+      <div>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/about">About Us</a></li><li><a href="/our-work">Our Work</a></li><li><a href="/hosting">Hosting Plans</a></li>
+          <li><a href="/training">Training &amp; Internship</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Get in touch</h2>
+        <ul>
+          <li><a href="/contact">Send an enquiry</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="legal-row">
+      <span>© 2026 Saturn Technologies India Private Limited. All rights reserved.</span>
+      <ul>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms and Conditions</a></li>
+        <li><a href="/refund-policy">Refund and Cancellation Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/vendor/pdfjs/pdf.min.js" defer></script>
+<script src="/assets/js/student.js" defer></script>
+</body>
+</html>

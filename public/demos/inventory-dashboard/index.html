@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Inventory Dashboard (demonstration) | Saturn Technologies</title>
+<link rel="stylesheet" href="/demos/_shared/demo.css">
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<div class="demo-banner"><span><strong>Demonstration project by Saturn Technologies.</strong> Sample data only. Changes are not saved.</span><a href="/our-work">Back to Our Work</a></div>
+<div class="app">
+  <aside class="side" aria-label="Demo navigation"><div class="brand">StockView</div><a class="on" href="#">Inventory</a><a href="#">Suppliers</a><a href="#">Orders</a><a href="#">Reports</a></aside>
+  <main class="main">
+    <header class="bar"><h1>Inventory</h1><p>Sample stock for a fictional retailer</p></header>
+    <section class="cards" aria-label="Summary"><div class="c"><span>Items tracked</span><b id="s-items">0</b></div><div class="c"><span>Low stock</span><b id="s-low" class="warn">0</b></div><div class="c"><span>Out of stock</span><b id="s-out" class="bad">0</b></div><div class="c"><span>Stock value</span><b id="s-val">₹0</b></div></section>
+    <div id="alert" class="alert" role="status"></div>
+    <section class="panel">
+      <div class="tools"><label class="sr-only" for="q">Search items</label><input id="q" type="search" placeholder="Search by name or SKU"><label class="sr-only" for="st">Filter by status</label><select id="st"><option value="">All statuses</option><option value="ok">In stock</option><option value="low">Low stock</option><option value="out">Out of stock</option></select></div>
+      <div class="tw"><table><thead><tr><th>Item</th><th>SKU</th><th class="n">Qty</th><th class="n">Price</th><th>Status</th></tr></thead><tbody id="rows"></tbody></table></div>
+      <p id="empty" class="empty" hidden>No items match your search.</p>
+    </section>
+    <section class="panel"><h2>Add an item</h2>
+      <form id="add" class="add" novalidate>
+        <div><label for="a-name">Item name</label><input id="a-name" required></div>
+        <div><label for="a-sku">SKU</label><input id="a-sku" required></div>
+        <div><label for="a-qty">Quantity</label><input id="a-qty" type="number" min="0" value="10"></div>
+        <div><label for="a-price">Price (₹)</label><input id="a-price" type="number" min="0" value="500"></div>
+        <button class="btn" type="submit">Add</button>
+      </form><p id="a-msg" class="msg" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+</div>
+<script src="demo.js" defer></script>
+</body>
+</html>

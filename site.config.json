@@ -1,0 +1,46 @@
+{
+  "_README": "EDIT THIS FILE to publish your real business details. Anything left empty ('') is NOT shown on the public website. Nothing here is a secret: secrets (API keys) go in Vercel environment variables, never in this file.",
+
+  "siteUrl": "https://websites-software-business-grow.vercel.app",
+
+  "company": {
+    "legalName": "Saturn Technologies India Private Limited",
+    "shortName": "Saturn Technologies"
+  },
+
+  "contact": {
+    "email": "",
+    "phone": "",
+    "whatsappNumber": "",
+    "whatsappMessage": "Hello Saturn Technologies, I would like to discuss a project.",
+    "hours": "",
+    "address": "",
+    "addressVerified": false
+  },
+
+  "registration": {
+    "cin": "",
+    "gstin": ""
+  },
+
+  "social": {
+    "linkedin": "",
+    "instagram": "",
+    "facebook": "",
+    "x": "",
+    "youtube": "",
+    "github": ""
+  },
+
+  "legal": {
+    "showDraftNotice": true,
+    "lastUpdated": "1 November 2026",
+    "governingLawCity": "",
+    "hostingProvider": "Vercel",
+    "emailProvider": "Resend"
+  },
+
+  "training": {
+    "enabled": true
+  }
+}

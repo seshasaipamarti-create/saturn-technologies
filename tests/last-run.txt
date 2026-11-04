@@ -1,0 +1,15 @@
+Saturn website test run: 459/459 checks passed, 0 failed
+
+  SEO         117 passed
+  A11Y        97 passed
+  SECURITY    19 passed
+  CONTENT     24 passed
+  LINKS       56 passed
+  CONSOLE     26 passed
+  LEGAL       11 passed
+  API         19 passed
+  FORM        7 passed
+  RESPONSIVE  76 passed
+  NAV         5 passed
+  PERF        2 passed
+

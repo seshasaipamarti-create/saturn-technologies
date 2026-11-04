@@ -1,0 +1,68 @@
+{
+  "_README": "Prices below are the published plan prices. Every specification set to null is UNVERIFIED and is shown publicly as 'Confirmed on enquiry'. Replace null with the real value (for example \"10 GB SSD\") once you have confirmed it with your hosting provider, and it will appear on the Hosting page automatically. Do not publish a value you have not verified.",
+  "currency": "₹",
+  "period": "month",
+  "plans": [
+    {
+      "id": "starter",
+      "name": "Starter",
+      "price": 299,
+      "audience": "For a small business or portfolio website",
+      "recommended": false,
+      "specs": {
+        "storage": null,
+        "bandwidth": null,
+        "emailAccounts": null,
+        "ssl": null,
+        "backups": null,
+        "support": null,
+        "renewal": null,
+        "cancellation": null
+      }
+    },
+    {
+      "id": "business",
+      "name": "Business",
+      "price": 799,
+      "audience": "For growing websites and online stores",
+      "recommended": true,
+      "specs": {
+        "storage": null,
+        "bandwidth": null,
+        "emailAccounts": null,
+        "ssl": null,
+        "backups": null,
+        "support": null,
+        "renewal": null,
+        "cancellation": null
+      }
+    },
+    {
+      "id": "managed-pro",
+      "name": "Managed Pro",
+      "price": 1999,
+      "audience": "For web applications and higher-traffic sites",
+      "recommended": false,
+      "specs": {
+        "storage": null,
+        "bandwidth": null,
+        "emailAccounts": null,
+        "ssl": null,
+        "backups": null,
+        "support": null,
+        "renewal": null,
+        "cancellation": null
+      }
+    }
+  ],
+  "rows": [
+    { "key": "storage", "label": "Storage" },
+    { "key": "bandwidth", "label": "Bandwidth" },
+    { "key": "emailAccounts", "label": "Business email accounts" },
+    { "key": "ssl", "label": "SSL certificate" },
+    { "key": "backups", "label": "Backups" },
+    { "key": "support", "label": "Support" },
+    { "key": "renewal", "label": "Renewal pricing" },
+    { "key": "cancellation", "label": "Cancellation conditions" }
+  ]
+}

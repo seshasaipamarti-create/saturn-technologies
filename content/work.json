@@ -1,0 +1,38 @@
+{
+  "_README": "These are DEMONSTRATION projects built by Saturn Technologies to show what we can build. They are not client projects and must stay labelled as demonstrations. When you complete genuine client work (with the client's permission) add it to the 'projects' list with \"isDemo\": false, a real screenshot in assets/img/work/, and an optional liveUrl.",
+  "projects": [
+    {
+      "slug": "restaurant-booking",
+      "isDemo": true,
+      "title": "Restaurant Website with Table Booking",
+      "category": "Business Website",
+      "description": "A concept website for a fictional restaurant: menu highlights, opening hours and a working table-booking form with validation.",
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "image": "restaurant-booking.webp",
+      "alt": "Screenshot of the demonstration restaurant website with a table booking form",
+      "liveUrl": "/demos/restaurant-booking/"
+    },
+    {
+      "slug": "inventory-dashboard",
+      "isDemo": true,
+      "title": "Inventory Management Dashboard",
+      "category": "Web Application",
+      "description": "A concept stock-tracking dashboard with search, status filters, low-stock alerts and the ability to add items. Uses sample data only.",
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "image": "inventory-dashboard.webp",
+      "alt": "Screenshot of the demonstration inventory dashboard showing a stock table and summary cards",
+      "liveUrl": "/demos/inventory-dashboard/"
+    },
+    {
+      "slug": "online-store",
+      "isDemo": true,
+      "title": "Online Store Storefront",
+      "category": "E-commerce",
+      "description": "A concept storefront with a product grid, category filter and a working cart with quantity controls and totals. No real payments are taken.",
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "image": "online-store.webp",
+      "alt": "Screenshot of the demonstration online store with product cards and a shopping cart",
+      "liveUrl": "/demos/online-store/"
+    }
+  ]
+}

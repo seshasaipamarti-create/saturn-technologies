@@ -1,0 +1,23 @@
+{
+  "_README": "Edit this file to describe the Java Full Stack training programme. Only publish facts you have confirmed. Leave 'duration', 'mode', 'fee' and 'nextBatch' as empty strings to keep them off the website. Training fees must never be mixed with software service pricing.",
+  "programmeName": "Java Full Stack Training Programme",
+  "summary": "A structured programme for learners who want to build practical skills in full stack web development using Java.",
+  "duration": "",
+  "mode": "",
+  "fee": "",
+  "nextBatch": "",
+  "topics": [
+    "Core Java and object-oriented programming",
+    "Databases and SQL",
+    "Building back-end services and REST APIs with Java",
+    "Front-end fundamentals: HTML, CSS and JavaScript",
+    "Version control with Git",
+    "Building a complete project from start to finish"
+  ],
+  "topicsNote": "These topics are indicative. The detailed syllabus is shared on request.",
+  "whoFor": [
+    "Students and recent graduates who want to learn full stack development",
+    "Career changers moving into software development",
+    "Self-taught learners who want a structured path"
+  ]
+}

@@ -1,0 +1,23 @@
+node_modules/
+tests/shots/
+.env
+.env.local
+.env.*.local
+*.log
+
+# Local JSON database, student personal data, admin credentials, payments and backups
+data/
+
+# Temporary automated browser test profiles
+.tmp_chrome_admin_*/
+
+# Vercel deployment metadata
+.vercel/
+
+# Operating system metadata
+.DS_Store
+Thumbs.db
+
+# Local scratch directories and browser profiles
+scratch/
+

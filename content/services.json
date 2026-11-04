@@ -1,0 +1,134 @@
+[
+  {
+    "slug": "website-development",
+    "icon": "monitor",
+    "title": "Website Development",
+    "short": "Clear, fast, mobile-friendly websites that explain what you do and make it easy for customers to contact you.",
+    "items": ["Business websites", "Corporate websites", "Landing pages", "Portfolio websites"],
+    "metaTitle": "Website Development Company for Businesses",
+    "metaDescription": "Saturn Technologies builds business websites, corporate websites, landing pages and portfolio sites that are fast, responsive and easy to manage.",
+    "intro": "Your website is often the first thing a customer sees. We design and build websites that present your business clearly, load quickly on phones and desktops, and make it simple for visitors to get in touch.",
+    "included": [
+      "Page structure and content layout planned around your business goals",
+      "Responsive design that works on mobile, tablet and desktop",
+      "Contact forms and enquiry buttons that reach you",
+      "Basic on-page search engine setup (titles, descriptions, sitemap)",
+      "Handover so you know how your site is managed"
+    ],
+    "goodFor": [
+      "Businesses launching their first website",
+      "Companies replacing an outdated or slow website",
+      "Professionals who need a portfolio or personal brand site",
+      "Campaigns that need a focused landing page"
+    ]
+  },
+  {
+    "slug": "web-application-development",
+    "icon": "code",
+    "title": "Custom Web Application Development",
+    "short": "Software built around how your business actually works, from internal dashboards to customer portals.",
+    "items": ["Admin dashboards", "Customer portals", "Booking systems", "Inventory management", "Business automation"],
+    "metaTitle": "Custom Web Application & Software Development",
+    "metaDescription": "Custom software development: admin dashboards, customer portals, booking systems, inventory tools and business automation built for your workflow.",
+    "intro": "When off-the-shelf software does not fit, we build web applications tailored to your process. We start by understanding how your team works today, then design software that removes manual effort instead of adding to it.",
+    "included": [
+      "Requirement discussion and a written scope before development starts",
+      "User accounts, roles and permissions where needed",
+      "Dashboards, forms, search and reporting designed for daily use",
+      "Integration with tools you already use, where an integration is available",
+      "Testing before launch and support after launch"
+    ],
+    "goodFor": [
+      "Teams managing work in spreadsheets and messages",
+      "Businesses that take bookings or appointments",
+      "Companies tracking stock, orders or customers",
+      "Organisations that need a portal for customers or staff"
+    ]
+  },
+  {
+    "slug": "ecommerce-development",
+    "icon": "bag",
+    "title": "E-commerce Development",
+    "short": "Online stores that present your products well and take payments securely.",
+    "items": ["Online stores", "Product catalogues", "Shopping carts", "Payment gateway integration"],
+    "metaTitle": "E-commerce Website Development",
+    "metaDescription": "E-commerce website development: online stores, product catalogues, shopping carts and payment gateway integration for growing businesses.",
+    "intro": "We build online stores that make it easy for customers to browse, choose and pay, and easy for you to manage products and orders.",
+    "included": [
+      "Product catalogue with categories, images and search",
+      "Shopping cart and checkout flow",
+      "Integration with a payment gateway of your choice, subject to the gateway's own approval process",
+      "Order management for your team",
+      "Mobile-first layouts for shoppers on phones"
+    ],
+    "goodFor": [
+      "Retailers moving online for the first time",
+      "Brands that sell through social media and want their own store",
+      "Businesses that need a product catalogue with enquiries rather than checkout"
+    ]
+  },
+  {
+    "slug": "web-hosting",
+    "icon": "server",
+    "title": "Web Hosting Solutions",
+    "short": "Hosting, domain management and business email, set up and supported by the team that builds your site.",
+    "items": ["Website hosting", "Domain management", "Business email", "Website migration"],
+    "metaTitle": "Website Hosting Services",
+    "metaDescription": "Website hosting services with domain management, business email and website migration, supported by the same team that builds your site.",
+    "intro": "Keep your website, domain and email in one place with one team to call. We can host sites we build, move an existing site to us, and help you manage your domain and business email.",
+    "included": [
+      "Website hosting on one of our plans",
+      "Help registering, renewing and managing your domain name",
+      "Business email address setup",
+      "Migration of an existing website to our hosting",
+      "Technical support for hosting issues"
+    ],
+    "goodFor": [
+      "Businesses that want one point of contact for site and hosting",
+      "Owners who want help with domain and email setup",
+      "Anyone moving away from hosting that is slow or unsupported"
+    ]
+  },
+  {
+    "slug": "ui-ux-design",
+    "icon": "layout",
+    "title": "UI/UX Design",
+    "short": "Interfaces that are easy to understand and pleasant to use on every screen size.",
+    "items": ["Website interface design", "Responsive layouts", "User experience improvements"],
+    "metaTitle": "UI/UX Design for Websites and Web Apps",
+    "metaDescription": "UI/UX design services: website interface design, responsive layouts and user experience improvements for websites and web applications.",
+    "intro": "Good design makes a product easier to use and a business easier to trust. We design interfaces around what your visitors and users are trying to do.",
+    "included": [
+      "Layouts and visual design consistent with your brand",
+      "Responsive designs for phones, tablets and desktops",
+      "Review of an existing site's navigation, forms and flows with specific recommendations",
+      "Design that is ready to be built, so nothing is lost between design and development"
+    ],
+    "goodFor": [
+      "Businesses whose site looks dated or is confusing to use",
+      "Startups preparing a first product interface",
+      "Teams that want a design review before investing in development"
+    ]
+  },
+  {
+    "slug": "it-support-maintenance",
+    "icon": "wrench",
+    "title": "IT Support and Maintenance",
+    "short": "Keep your website and software running smoothly after launch.",
+    "items": ["Website maintenance", "Bug fixing", "Technical assistance", "Performance improvements"],
+    "metaTitle": "Website Maintenance and IT Support Services",
+    "metaDescription": "Website maintenance and IT support: updates, bug fixing, technical assistance and performance improvements for websites and web applications.",
+    "intro": "A website needs care after launch. We help with updates, fixes, content changes and performance, so small problems do not turn into big ones.",
+    "included": [
+      "Fixing bugs and broken functionality",
+      "Content and design updates",
+      "Technical assistance when something is not working",
+      "Reviews of speed and performance, with improvements"
+    ],
+    "goodFor": [
+      "Businesses without an in-house technical person",
+      "Sites that were built by someone else and need ongoing care",
+      "Owners who want a dependable contact when something breaks"
+    ]
+  }
+]

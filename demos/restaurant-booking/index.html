@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lantern Table (demonstration) | Saturn Technologies</title>
+<link rel="stylesheet" href="/demos/_shared/demo.css">
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<div class="demo-banner"><span><strong>Demonstration project by Saturn Technologies.</strong> Fictional restaurant, sample content. Nothing is saved or sent.</span><a href="/our-work">Back to Our Work</a></div>
+<header class="top"><div class="w"><a class="logo" href="#">Lantern Table</a><nav aria-label="Demo"><a href="#menu">Menu</a><a href="#hours">Hours</a><a class="pill" href="#book">Book a table</a></nav></div></header>
+<main>
+<section class="hero"><div class="w">
+  <p class="kicker">Modern Indian kitchen</p>
+  <h1>Slow-cooked food, shared at one table.</h1>
+  <p class="lead">A concept website for a fictional restaurant, showing a menu, opening hours and a table-booking form that validates input.</p>
+  <a class="btn" href="#book">Reserve a table</a>
+</div></section>
+<section id="menu" class="sec"><div class="w">
+  <h2>Menu highlights</h2>
+  <ul class="dishes">
+    <li><div><h3>Charred corn kebab</h3><p>Smoked corn, mint chutney, pickled onion.</p></div><b>₹260</b></li>
+    <li><div><h3>Slow-cooked dal</h3><p>Black lentils simmered overnight, finished with butter.</p></div><b>₹320</b></li>
+    <li><div><h3>Coastal prawn curry</h3><p>Coconut, tamarind and curry leaf, served with rice.</p></div><b>₹540</b></li>
+    <li><div><h3>Jaggery kulfi</h3><p>Slow-set kulfi with roasted nuts.</p></div><b>₹210</b></li>
+  </ul>
+  <p class="note">Sample menu and prices for demonstration only.</p>
+</div></section>
+<section id="hours" class="sec alt"><div class="w two">
+  <div><h2>Opening hours</h2><table><tbody><tr><th scope="row">Monday to Friday</th><td>12:00 to 15:00, 19:00 to 23:00</td></tr><tr><th scope="row">Saturday and Sunday</th><td>12:00 to 23:30</td></tr></tbody></table><p class="note">Sample hours.</p></div>
+  <div id="book"><h2>Book a table</h2>
+  <form id="book-form" novalidate>
+    <div class="f"><label for="b-name">Name</label><input id="b-name" name="name" required></div>
+    <div class="f"><label for="b-phone">Phone</label><input id="b-phone" name="phone" inputmode="tel" required></div>
+    <div class="r"><div class="f"><label for="b-date">Date</label><input id="b-date" name="date" type="date" required></div>
+    <div class="f"><label for="b-time">Time</label><select id="b-time" name="time"><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option></select></div>
+    <div class="f"><label for="b-guests">Guests</label><select id="b-guests" name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div></div>
+    <button class="btn" type="submit">Request booking</button>
+    <p id="b-status" class="status" role="status" aria-live="polite"></p>
+  </form></div>
+</div></section>
+</main>
+<footer class="foot"><div class="w">Lantern Table is a fictional business created by Saturn Technologies for demonstration.</div></footer>
+<script src="demo.js" defer></script>
+</body>
+</html>

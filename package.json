@@ -1,0 +1,23 @@
+{
+  "name": "saturn-technologies-website",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Website for Saturn Technologies India Private Limited: static pages generated at build time plus one serverless contact endpoint.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "node scripts/build.js && node tests/server.js --port 3000",
+    "demos:screenshots": "node scripts/screenshots.js",
+    "test:student": "node scripts/build.js && node tests/test-student-auth.js",
+    "test:admin": "node scripts/build.js && node tests/test-admin.js",
+    "test:admin:browser": "node scripts/build.js && node tests/browser-admin.js",
+    "test:browser": "node scripts/build.js && node tests/browser-suite.js",
+    "test": "node scripts/build.js && node tests/test-student-auth.js && node tests/test-admin.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0"
+  }
+}

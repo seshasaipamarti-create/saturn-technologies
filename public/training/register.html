@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Registration &amp; Login | Saturn Technologies</title>
+<meta name="description" content="Register for the Saturn Technologies Java Full Stack training programme or log in to your student dashboard.">
+<link rel="canonical" href="https://websites-software-business-grow.vercel.app/training/register">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#061f3d">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Saturn Technologies India Private Limited">
+<meta property="og:title" content="Student Registration &amp; Login | Saturn Technologies">
+<meta property="og:description" content="Register for the Saturn Technologies Java Full Stack training programme or log in to your student dashboard.">
+<meta property="og:url" content="https://websites-software-business-grow.vercel.app/training/register">
+<meta property="og:image" content="https://websites-software-business-grow.vercel.app/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/inter-Regular.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="/assets/fonts/inter-ExtraBold.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="/assets/css/styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Saturn Technologies India Private Limited","url":"https://websites-software-business-grow.vercel.app/","logo":"https://websites-software-business-grow.vercel.app/assets/img/apple-touch-icon.png"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://websites-software-business-grow.vercel.app/"},{"@type":"ListItem","position":2,"name":"Training & Internship","item":"https://websites-software-business-grow.vercel.app/training"},{"@type":"ListItem","position":3,"name":"Student Registration & Login","item":"https://websites-software-business-grow.vercel.app/training/register"}]}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Saturn Technologies home">
+      <span class="mark" aria-hidden="true"><i class="ring"></i><i class="sym"></i></span>
+      <span class="wm"><b>SATURN</b><small>TECHNOLOGIES</small></span>
+    </a>
+    <nav aria-label="Main"><ul id="site-nav"><li><a href="/">Home</a></li><li><a href="/services">Services</a></li><li><a href="/our-work">Our Work</a></li><li><a href="/hosting">Hosting</a></li><li><a href="/about">About</a></li><li><a href="/training" aria-current="page">Training</a></li><li><a href="/contact">Contact</a></li></ul></nav>
+    <a class="btn sm nav-cta" href="/contact">Free Consultation</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <div class="wrap">
+    <ol class="crumbs" aria-label="Breadcrumb"><li><a href="/">Home</a></li><li><a href="/training">Training &amp; Internship</a></li><li aria-current="page">Student Portal</li></ol>
+    <h1>Student Registration &amp; Login</h1>
+    <p>Access your student dashboard or create a new student account for the training programme.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap auth-wrap">
+    <div class="auth-card">
+      <div class="auth-tabs" role="tablist" aria-label="Student account access">
+        <button type="button" class="auth-tab active" id="tab-btn-signup" role="tab" aria-selected="true" aria-controls="panel-signup">Sign Up</button>
+        <button type="button" class="auth-tab" id="tab-btn-login" role="tab" aria-selected="false" aria-controls="panel-login">Login</button>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div class="auth-panel" id="panel-signup" role="tabpanel" aria-labelledby="tab-btn-signup">
+        <form class="form" id="student-signup-form" novalidate>
+          <h2>Student Sign Up</h2>
+          <p class="sub">Register with your college and academic details to enrol in the training programme.</p>
+
+          <div class="field">
+            <label for="reg-email">Email ID *</label>
+            <input id="reg-email" name="email" type="email" autocomplete="email" required maxlength="160" placeholder="student@saturn.in">
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="reg-phone">Contact Number *</label>
+              <input id="reg-phone" name="contactNumber" type="tel" autocomplete="tel" required maxlength="15" inputmode="tel" placeholder="10-digit mobile number">
+            </div>
+            <div class="field">
+              <label for="reg-college">College Name *</label>
+              <input id="reg-college" name="collegeName" type="text" required maxlength="150" placeholder="Your College / University">
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="reg-year">Current Academic Year *</label>
+              <select id="reg-year" name="academicYear" required>
+                <option value="">Select Academic Year</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year / Final Year">4th Year / Final Year</option>
+                <option value="Passed Out / Graduate">Passed Out / Graduate</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="reg-degree">Class / Degree *</label>
+              <input id="reg-degree" name="degree" type="text" required maxlength="60" placeholder="e.g. B.Tech, M.Tech, BCA, MCA">
+            </div>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="reg-password">New Password *</label>
+              <input id="reg-password" name="password" type="password" autocomplete="new-password" required minlength="8" placeholder="At least 8 characters">
+            </div>
+            <div class="field">
+              <label for="reg-confirm-password">Confirm Password *</label>
+              <input id="reg-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" required minlength="8" placeholder="Re-enter password">
+            </div>
+          </div>
+
+          <button class="btn block" type="submit" id="reg-submit">Register Now <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <div class="form-status" id="reg-status" role="status" aria-live="polite"></div>
+
+          <p class="fine switch-prompt">
+            Already registered? <button type="button" class="link-btn" id="link-to-login">Log in here</button>
+          </p>
+        </form>
+      </div>
+
+      <!-- Login Form -->
+      <div class="auth-panel" id="panel-login" role="tabpanel" aria-labelledby="tab-btn-login" hidden>
+        <form class="form" id="student-login-form" novalidate>
+          <h2>Student Login</h2>
+          <p class="sub">Enter your registered email address and password to sign in.</p>
+
+          <div class="field">
+            <label for="login-email">Registered Email Address *</label>
+            <input id="login-email" name="email" type="email" autocomplete="email" required maxlength="160" placeholder="student@saturn.in">
+          </div>
+
+          <div class="field">
+            <label for="login-password">Password *</label>
+            <input id="login-password" name="password" type="password" autocomplete="current-password" required placeholder="Enter your password">
+          </div>
+
+          <button class="btn block" type="submit" id="login-submit">Log In <svg class="" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <div class="form-status" id="login-status" role="status" aria-live="polite"></div>
+
+          <p class="fine switch-prompt">
+            Need a student account? <button type="button" class="link-btn" id="link-to-signup">Sign up here</button>
+          </p>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="brand" href="/" aria-label="Saturn Technologies home">
+      <span class="mark" aria-hidden="true"><i class="ring"></i><i class="sym"></i></span>
+      <span class="wm"><b>SATURN</b><small>TECHNOLOGIES</small></span>
+    </a>
+        <p>Software development, websites, web applications, e-commerce, hosting and IT services for growing businesses.</p>
+        
+      </div>
+      <div>
+        <h2>Services</h2>
+        <ul><li><a href="/services/website-development">Website Development</a></li><li><a href="/services/web-application-development">Custom Web Application Development</a></li><li><a href="/services/ecommerce-development">E-commerce Development</a></li><li><a href="/services/web-hosting">Web Hosting Solutions</a></li><li><a href="/services/ui-ux-design">UI/UX Design</a></li><li><a href="/services/it-support-maintenance">IT Support and Maintenance</a></li></ul>
+      </div>
+      <div>
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/about">About Us</a></li><li><a href="/our-work">Our Work</a></li><li><a href="/hosting">Hosting Plans</a></li>
+          <li><a href="/training">Training &amp; Internship</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Get in touch</h2>
+        <ul>
+          <li><a href="/contact">Send an enquiry</a></li>
+          
+        </ul>
+      </div>
+    </div>
+    <div class="legal-row">
+      <span>© 2026 Saturn Technologies India Private Limited. All rights reserved.</span>
+      <ul>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms and Conditions</a></li>
+        <li><a href="/refund-policy">Refund and Cancellation Policy</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/student.js" defer></script>
+</body>
+</html>

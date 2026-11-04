@@ -1,0 +1,11 @@
+/* Shared by the three demonstration projects. No inline styles (strict CSP). */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;color:#1d2433}
+img,svg{display:block;max-width:100%}
+button,input,select{font:inherit}
+.demo-banner{background:#08305c;color:#dbe6f5;font-size:.84rem;padding:9px 16px;display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;text-align:center}
+.demo-banner strong{color:#fff}
+.demo-banner a{color:#fc7705;font-weight:700;text-decoration:underline}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:3px solid #fc7705;outline-offset:2px}
+.demo-banner a{padding:8px 12px;border-radius:6px}

@@ -1,0 +1,34 @@
+[
+  {
+    "q": "How much does website development cost?",
+    "a": "It depends on the number of pages, the features you need and how much custom design is involved. After an initial discussion we send a written proposal with the scope and the price, so you know the cost before work starts."
+  },
+  {
+    "q": "How long will my project take?",
+    "a": "Timelines depend on scope and on how quickly content and feedback reach us. A small website takes less time than a web application or an online store. Your written proposal includes a planned timeline for your specific project."
+  },
+  {
+    "q": "What are your payment terms?",
+    "a": "The payment schedule is agreed in writing before work begins and is set out in your proposal. Please see our Terms and Conditions and our Refund and Cancellation Policy for the general terms."
+  },
+  {
+    "q": "Do you provide web hosting?",
+    "a": "Yes. We offer hosting plans for websites we build and for existing websites that you move to us. Plan prices are on the Hosting page, and the technical specification of each plan is confirmed with you before you sign up."
+  },
+  {
+    "q": "Can you help me register a domain name?",
+    "a": "Yes. We can help you register, renew and manage a domain name. We recommend that your domain is registered in your own name so that you stay in control of it."
+  },
+  {
+    "q": "Do you maintain websites after they are launched?",
+    "a": "Yes. We offer website maintenance, bug fixing and technical assistance. This is available for sites we have built and, in many cases, for sites built by others after we have reviewed them."
+  },
+  {
+    "q": "Can you build custom software for my business?",
+    "a": "Yes. We build custom web applications such as dashboards, customer portals, booking systems and inventory tools. We begin with a requirement discussion so the software fits how your business works."
+  },
+  {
+    "q": "What kind of technical support can I expect?",
+    "a": "Support covers fixing faults in work we have delivered and helping you with technical questions about your website or application. The exact support terms for your project are stated in your proposal or hosting plan."
+  }
+]

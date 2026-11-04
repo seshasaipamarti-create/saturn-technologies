@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Portal | Saturn Technologies</title>
+<meta name="robots" content="noindex, nofollow">
+<script>
+(function() {
+  try {
+    var t = localStorage.getItem('saturn_admin_token');
+    if (t) {
+      window.location.replace('/admin/dashboard');
+    } else {
+      window.location.replace('/admin/login');
+    }
+  } catch(e) {
+    window.location.replace('/admin/login');
+  }
+})();
+</script>
+</head>
+<body style="font-family:system-ui,-apple-system,sans-serif;background:#061f3d;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+  <p>Connecting to Admin Portal…</p>
+</body>
+</html>
