@@ -1058,17 +1058,23 @@ function getAdminStats() {
     }));
 
   const recentPayments = [...payments]
-    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .sort((a, b) => new Date(b.timestamp || b.paidAt || b.createdAt) - new Date(a.timestamp || a.paidAt || a.createdAt))
     .slice(0, 5)
     .map((p) => {
       const student = findStudentById(p.studentId);
       return {
         id: p.id,
         orderId: p.orderId,
+        paymentId: p.paymentId || p.cfPaymentId || p.id,
+        cfPaymentId: p.cfPaymentId || p.paymentId,
+        transactionId: p.transactionId || p.cfPaymentId || p.paymentId || p.orderId,
+        studentName: student ? (student.fullName || student.name || student.email) : 'Student',
         studentEmail: student ? student.email : 'Unknown',
         amount: p.amount || COURSE_FEE,
-        status: p.status,
-        timestamp: p.timestamp,
+        status: p.status === 'SUCCESSFUL' ? 'PAID' : p.status,
+        timestamp: p.timestamp || p.paidAt || p.createdAt,
+        createdAt: p.createdAt || p.timestamp,
+        paidAt: p.paidAt || p.timestamp,
         method: p.method || 'Online'
       };
     });
@@ -1097,6 +1103,7 @@ function getAdminStats() {
       pendingPayments,
       failedPayments,
       verifiedRevenue,
+      totalRevenue: verifiedRevenue,
       totalReferrals,
       rewardsAwaitingCredit,
       rewardsCredited
@@ -1236,12 +1243,16 @@ function getAdminPayments({ search = '', status = 'ALL' } = {}) {
 
   const allRecords = payments.map((p) => {
     const student = students.find((s) => s.id === p.studentId);
+    const cfId = p.cfPaymentId || null;
     return {
       id: p.id,
       orderId: p.orderId,
-      cfPaymentId: p.cfPaymentId || null,
+      cfPaymentId: cfId,
+      paymentId: cfId || p.id,
+      transactionId: cfId || p.orderId || p.id,
       receiptNumber: p.status === 'PAID' ? (p.receiptNumber || generateReceiptNumber(p.orderId, p.id)) : null,
       studentId: p.studentId,
+      studentName: student ? (student.email.split('@')[0]) : 'Student',
       studentEmail: student ? student.email : 'Unknown',
       studentPhone: student ? student.contactNumber : '',
       studentCollege: student ? student.collegeName : '',
@@ -1251,7 +1262,9 @@ function getAdminPayments({ search = '', status = 'ALL' } = {}) {
       currency: p.currency || COURSE_CURRENCY,
       status: p.status,
       method: p.method || 'Online',
-      timestamp: p.timestamp
+      timestamp: p.timestamp,
+      createdAt: p.timestamp,
+      paidAt: p.status === 'PAID' ? p.timestamp : null
     };
   });
 
@@ -1279,9 +1292,10 @@ function getAdminPayments({ search = '', status = 'ALL' } = {}) {
     }
   });
 
+  const normalizedStatus = status === 'SUCCESSFUL' ? 'PAID' : status;
   const filtered = allRecords
     .filter((p) => {
-      if (status !== 'ALL' && p.status !== status) return false;
+      if (normalizedStatus !== 'ALL' && p.status !== normalizedStatus) return false;
       if (!q) return true;
       return (
         p.studentEmail.toLowerCase().includes(q) ||

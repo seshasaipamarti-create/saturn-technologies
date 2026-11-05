@@ -515,12 +515,16 @@ async function getPaymentReceipt({ studentId, paymentId }) {
   if (!studentId || !paymentId) return null;
   const supabase = getClient();
 
-  const { data: payment } = await supabase
+  const { data: payment, error: paymentErr } = await supabase
     .from('payments')
     .select('*')
     .eq('student_id', studentId)
-    .or(`id.eq.${paymentId},order_id.eq.${paymentId}`)
+    .or(`id.eq.${paymentId},order_id.eq.${paymentId},cf_payment_id.eq.${paymentId}`)
     .maybeSingle();
+
+  if (paymentErr) {
+    throw new Error(`Failed to retrieve payment receipt: ${paymentErr.message}`);
+  }
 
   if (!payment) return null;
 
@@ -755,29 +759,69 @@ async function logAdminAction({ action, details = {}, adminEmail = 'admin@saturn
 async function getAdminStats() {
   const supabase = getClient();
 
-  const { count: totalStudents } = await supabase.from('students').select('*', { count: 'exact', head: true });
-  const { count: paidStudents } = await supabase.from('enrollments').select('*', { count: 'exact', head: true }).eq('status', 'PAID');
-  const { count: pendingPayments } = await supabase.from('enrollments').select('*', { count: 'exact', head: true }).eq('status', 'PENDING');
-  const { count: failedPayments } = await supabase.from('payments').select('*', { count: 'exact', head: true }).eq('status', 'FAILED');
-  const { count: totalReferrals } = await supabase.from('referral_rewards').select('*', { count: 'exact', head: true });
-  const { count: rewardsCredited } = await supabase.from('referral_rewards').select('*', { count: 'exact', head: true }).eq('status', REWARD_STATUS.CREDITED);
-  const { count: rewardsAwaitingCredit } = await supabase.from('referral_rewards').select('*', { count: 'exact', head: true }).neq('status', REWARD_STATUS.CREDITED);
+  const { count: totalStudents, error: errTotalStudents } = await supabase.from('students').select('*', { count: 'exact', head: true });
+  if (errTotalStudents) throw new Error(`Failed to count students: ${errTotalStudents.message}`);
 
-  const verifiedRevenue = (paidStudents || 0) * COURSE_FEE;
+  const { count: paidStudents, error: errPaidStudents } = await supabase.from('enrollments').select('*', { count: 'exact', head: true }).eq('status', 'PAID');
+  if (errPaidStudents) throw new Error(`Failed to count paid students: ${errPaidStudents.message}`);
+
+  const { count: pendingPayments, error: errPendingPayments } = await supabase.from('enrollments').select('*', { count: 'exact', head: true }).eq('status', 'PENDING');
+  if (errPendingPayments) throw new Error(`Failed to count pending payments: ${errPendingPayments.message}`);
+
+  const { count: failedPayments, error: errFailedPayments } = await supabase.from('payments').select('*', { count: 'exact', head: true }).eq('status', 'FAILED');
+  if (errFailedPayments) throw new Error(`Failed to count failed payments: ${errFailedPayments.message}`);
+
+  const { count: totalReferrals, error: errTotalReferrals } = await supabase.from('referral_rewards').select('*', { count: 'exact', head: true });
+  if (errTotalReferrals) throw new Error(`Failed to count referrals: ${errTotalReferrals.message}`);
+
+  const { count: rewardsCredited, error: errRewardsCredited } = await supabase.from('referral_rewards').select('*', { count: 'exact', head: true }).eq('status', REWARD_STATUS.CREDITED);
+  if (errRewardsCredited) throw new Error(`Failed to count credited rewards: ${errRewardsCredited.message}`);
+
+  const { count: rewardsAwaitingCredit, error: errRewardsAwaitingCredit } = await supabase.from('referral_rewards').select('*', { count: 'exact', head: true }).neq('status', REWARD_STATUS.CREDITED);
+  if (errRewardsAwaitingCredit) throw new Error(`Failed to count awaiting rewards: ${errRewardsAwaitingCredit.message}`);
+
+  // Calculate revenue directly from actual verified PAID payment records
+  const { data: verifiedPaymentRows, error: errVerifiedRevenue } = await supabase
+    .from('payments')
+    .select('amount')
+    .eq('status', 'PAID');
+  if (errVerifiedRevenue) {
+    throw new Error(`Failed to query verified payments for revenue: ${errVerifiedRevenue.message}`);
+  }
+  const verifiedRevenue = (verifiedPaymentRows || []).reduce((sum, p) => sum + (Number(p.amount) || COURSE_FEE), 0);
 
   // Recent students
-  const { data: recentStudents } = await supabase
+  const { data: recentStudents, error: errRecentStudents } = await supabase
     .from('students')
     .select('id, email, degree, college_name, created_at, status')
     .order('created_at', { ascending: false })
     .limit(5);
+  if (errRecentStudents) {
+    throw new Error(`Failed to fetch recent students: ${errRecentStudents.message}`);
+  }
 
   // Recent payments
-  const { data: recentPayments } = await supabase
+  const { data: recentPayments, error: errRecentPayments } = await supabase
     .from('payments')
-    .select('id, order_id, student_id, amount, status, timestamp, method')
+    .select('id, order_id, cf_payment_id, student_id, amount, status, timestamp, method')
     .order('timestamp', { ascending: false })
     .limit(5);
+  if (errRecentPayments) {
+    throw new Error(`Failed to fetch recent payments: ${errRecentPayments.message}`);
+  }
+
+  const recentStudentIds = Array.from(new Set((recentPayments || []).map((p) => p.student_id).filter(Boolean)));
+  let recentStudentMap = new Map();
+  if (recentStudentIds.length > 0) {
+    const { data: rStudents, error: errRStudents } = await supabase
+      .from('students')
+      .select('id, email, college_name')
+      .in('id', recentStudentIds);
+    if (errRStudents) {
+      throw new Error(`Failed to fetch students for recent payments: ${errRStudents.message}`);
+    }
+    recentStudentMap = new Map((rStudents || []).map((s) => [s.id, s]));
+  }
 
   return {
     stats: {
@@ -786,6 +830,7 @@ async function getAdminStats() {
       pendingPayments: pendingPayments || 0,
       failedPayments: failedPayments || 0,
       verifiedRevenue,
+      totalRevenue: verifiedRevenue,
       totalReferrals: totalReferrals || 0,
       rewardsAwaitingCredit: rewardsAwaitingCredit || 0,
       rewardsCredited: rewardsCredited || 0
@@ -798,14 +843,24 @@ async function getAdminStats() {
       createdAt: s.created_at,
       status: s.status
     })),
-    recentPayments: (recentPayments || []).map((p) => ({
-      id: p.id,
-      orderId: p.order_id,
-      amount: Number(p.amount),
-      status: p.status,
-      timestamp: p.timestamp,
-      method: p.method
-    })),
+    recentPayments: (recentPayments || []).map((p) => {
+      const st = recentStudentMap.get(p.student_id);
+      return {
+        id: p.id,
+        orderId: p.order_id,
+        cfPaymentId: p.cf_payment_id,
+        paymentId: p.cf_payment_id || p.id,
+        transactionId: p.cf_payment_id || p.order_id || p.id,
+        studentName: st ? st.email.split('@')[0] : 'Student',
+        studentEmail: st ? st.email : '—',
+        amount: Number(p.amount),
+        status: p.status,
+        timestamp: p.timestamp,
+        createdAt: p.timestamp,
+        paidAt: p.status === 'PAID' ? p.timestamp : null,
+        method: p.method || 'Online'
+      };
+    }),
     recentReferrals: []
   };
 }
@@ -874,33 +929,61 @@ async function toggleStudentStatus(studentId, adminEmail = 'admin@saturn.in', ta
 
 async function getAdminPayments({ search = '', status = 'ALL' } = {}) {
   const supabase = getClient();
-  let query = supabase.from('payments').select('*, student:students(*)').order('timestamp', { ascending: false });
+  let query = supabase.from('payments').select('*').order('timestamp', { ascending: false });
 
   if (status !== 'ALL') {
-    query = query.eq('status', status);
+    const normalizedStatus = status === 'SUCCESSFUL' ? 'PAID' : status;
+    query = query.eq('status', normalizedStatus);
   }
   if (search) {
     query = query.or(`order_id.ilike.%${search}%,cf_payment_id.ilike.%${search}%,receipt_number.ilike.%${search}%`);
   }
 
-  const { data: payments } = await query;
-  const records = (payments || []).map((p) => ({
-    id: p.id,
-    orderId: p.order_id,
-    cfPaymentId: p.cf_payment_id,
-    receiptNumber: p.receipt_number,
-    studentId: p.student_id,
-    studentEmail: p.student ? p.student.email : 'Unknown',
-    studentPhone: p.student ? p.student.contact_number : '',
-    studentCollege: p.student ? p.student.college_name : '',
-    studentDegree: p.student ? p.student.degree : '',
-    courseName: p.course_name,
-    amount: Number(p.amount),
-    currency: p.currency,
-    status: p.status,
-    method: p.method,
-    timestamp: p.timestamp
-  }));
+  const { data: payments, error: paymentsError } = await query;
+  if (paymentsError) {
+    throw new Error(`Failed to fetch admin payments: ${paymentsError.message}`);
+  }
+
+  const studentIds = Array.from(new Set((payments || []).map((p) => p.student_id).filter(Boolean)));
+  let studentMap = new Map();
+  if (studentIds.length > 0) {
+    const { data: students, error: studentsError } = await supabase
+      .from('students')
+      .select('id, email, contact_number, college_name, degree')
+      .in('id', studentIds);
+    if (studentsError) {
+      throw new Error(`Failed to fetch student details for payments: ${studentsError.message}`);
+    }
+    studentMap = new Map((students || []).map((s) => [s.id, s]));
+  }
+
+  const records = (payments || []).map((p) => {
+    const student = studentMap.get(p.student_id);
+    const cfId = p.cf_payment_id || null;
+    const paymentTimestamp = p.timestamp || null;
+    return {
+      id: p.id,
+      orderId: p.order_id,
+      cfPaymentId: cfId,
+      paymentId: cfId || p.id,
+      transactionId: cfId || p.order_id || p.id,
+      receiptNumber: p.receipt_number || null,
+      studentId: p.student_id,
+      studentName: student ? student.email.split('@')[0] : 'Student',
+      studentEmail: student ? student.email : 'Unknown',
+      studentPhone: student ? student.contact_number : '',
+      studentCollege: student ? student.college_name : '',
+      studentDegree: student ? student.degree : '',
+      courseName: p.course_name || COURSE_NAME,
+      amount: Number(p.amount),
+      currency: p.currency || 'INR',
+      status: p.status,
+      method: p.method || 'Online',
+      timestamp: paymentTimestamp,
+      createdAt: paymentTimestamp,
+      paidAt: p.status === 'PAID' ? paymentTimestamp : null
+    };
+  });
 
   const totalRevenue = records
     .filter((p) => p.status === 'PAID')

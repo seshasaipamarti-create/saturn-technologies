@@ -85,7 +85,7 @@
   function statusBadge(status, type = 'payment') {
     const s = String(status || '').toUpperCase();
     if (type === 'payment') {
-      if (s === 'SUCCESSFUL') return '<span class="badge ok">SUCCESSFUL</span>';
+      if (s === 'SUCCESSFUL' || s === 'PAID') return '<span class="badge ok">' + esc(s) + '</span>';
       if (s === 'PENDING') return '<span class="badge warn">PENDING</span>';
       return '<span class="badge danger">' + esc(s || 'FAILED') + '</span>';
     }
@@ -366,8 +366,8 @@
               <small class="fine">${esc(p.studentEmail || '—')}</small>
             </td>
             <td><strong>${fmtInr(p.amount || 5000)}</strong></td>
-            <td><code>${esc(p.transactionId || p.paymentId || p.orderId || '—')}</code></td>
-            <td>${fmtDate(p.createdAt || p.paidAt)}</td>
+            <td><code>${esc(p.cfPaymentId || p.transactionId || p.paymentId || p.orderId || '—')}</code></td>
+            <td>${fmtDate(p.paidAt || p.createdAt || p.timestamp)}</td>
             <td>${statusBadge(p.status, 'payment')}</td>
           </tr>
         `).join('');
@@ -651,17 +651,26 @@
 
     let verifiedTotal = 0;
     const filtered = allPayments.filter(p => {
-      const isPaid = String(p.status).toUpperCase() === 'SUCCESSFUL';
+      const sStatus = String(p.status || '').toUpperCase();
+      const isPaid = sStatus === 'PAID' || sStatus === 'SUCCESSFUL';
       if (isPaid) verifiedTotal += Number(p.amount || 5000);
 
       // Filter status
-      if (currentPaymentFilter === 'SUCCESSFUL' && !isPaid) return false;
-      if (currentPaymentFilter === 'PENDING' && String(p.status).toUpperCase() !== 'PENDING') return false;
-      if (currentPaymentFilter === 'FAILED' && (isPaid || String(p.status).toUpperCase() === 'PENDING')) return false;
+      if ((currentPaymentFilter === 'SUCCESSFUL' || currentPaymentFilter === 'PAID') && !isPaid) return false;
+      if (currentPaymentFilter === 'PENDING' && sStatus !== 'PENDING') return false;
+      if (currentPaymentFilter === 'FAILED' && (isPaid || sStatus === 'PENDING')) return false;
 
       // Search
       if (searchVal) {
-        const text = [p.studentName, p.studentEmail, p.orderId, p.paymentId, p.transactionId].join(' ').toLowerCase();
+        const text = [
+          p.studentName,
+          p.studentEmail,
+          p.orderId,
+          p.paymentId,
+          p.cfPaymentId,
+          p.transactionId,
+          p.receiptNumber
+        ].filter(Boolean).join(' ').toLowerCase();
         if (!text.includes(searchVal)) return false;
       }
       return true;
@@ -677,7 +686,10 @@
     }
 
     tbody.innerHTML = filtered.map(p => {
-      const isPaid = String(p.status).toUpperCase() === 'SUCCESSFUL';
+      const sStatus = String(p.status || '').toUpperCase();
+      const isPaid = sStatus === 'PAID' || sStatus === 'SUCCESSFUL';
+      const txId = p.cfPaymentId || p.transactionId || p.paymentId || p.orderId || '—';
+      const payDate = p.paidAt || p.createdAt || p.timestamp;
       return `
         <tr data-payment-id="${esc(p.id)}">
           <td>
@@ -686,8 +698,8 @@
           </td>
           <td>${esc(p.courseName || 'Java Full Stack Training Programme')}</td>
           <td><strong>${fmtInr(p.amount || 5000)}</strong></td>
-          <td><code>${esc(p.transactionId || p.paymentId || p.orderId || '—')}</code></td>
-          <td>${fmtDate(p.createdAt || p.paidAt)}</td>
+          <td><code>${esc(txId)}</code></td>
+          <td>${fmtDate(payDate)}</td>
           <td>${esc(p.method || 'UPI')}</td>
           <td>${statusBadge(p.status, 'payment')}</td>
           <td>
