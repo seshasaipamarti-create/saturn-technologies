@@ -4,10 +4,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "functions": {
-    "api/contact.js": { "maxDuration": 15 },
-    "api/student.js": { "maxDuration": 15 },
-    "api/cashfree.js": { "maxDuration": 15 },
-    "api/admin.js": { "maxDuration": 15 }
+    "api/contact.js": { "maxDuration": 15, "includeFiles": "site.config.json" },
+    "api/student.js": { "maxDuration": 15, "includeFiles": "site.config.json" },
+    "api/cashfree.js": { "maxDuration": 15, "includeFiles": "site.config.json" },
+    "api/admin.js": { "maxDuration": 15, "includeFiles": "site.config.json" }
   },
   "rewrites": [
     { "source": "/api/student/(.*)", "destination": "/api/student" },
