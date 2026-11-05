@@ -783,12 +783,13 @@ async function getAdminStats() {
   // Calculate revenue directly from actual verified PAID payment records
   const { data: verifiedPaymentRows, error: errVerifiedRevenue } = await supabase
     .from('payments')
-    .select('amount')
+    .select('amount, student_id')
     .eq('status', 'PAID');
   if (errVerifiedRevenue) {
     throw new Error(`Failed to query verified payments for revenue: ${errVerifiedRevenue.message}`);
   }
   const verifiedRevenue = (verifiedPaymentRows || []).reduce((sum, p) => sum + (Number(p.amount) || COURSE_FEE), 0);
+  const paidStudentIdSet = new Set((verifiedPaymentRows || []).map((p) => p.student_id).filter(Boolean));
 
   // Recent students
   const { data: recentStudents, error: errRecentStudents } = await supabase
@@ -798,6 +799,17 @@ async function getAdminStats() {
     .limit(5);
   if (errRecentStudents) {
     throw new Error(`Failed to fetch recent students: ${errRecentStudents.message}`);
+  }
+
+  // Also check enrollments for recent students if needed
+  const recentStIds = (recentStudents || []).map((s) => s.id);
+  if (recentStIds.length > 0) {
+    const { data: rEnrollments } = await supabase
+      .from('enrollments')
+      .select('student_id')
+      .in('student_id', recentStIds)
+      .eq('status', 'PAID');
+    (rEnrollments || []).forEach((e) => paidStudentIdSet.add(e.student_id));
   }
 
   // Recent payments
@@ -837,10 +849,15 @@ async function getAdminStats() {
     },
     recentStudents: (recentStudents || []).map((s) => ({
       id: s.id,
+      name: s.email ? s.email.split('@')[0] : 'Student',
+      fullName: s.email ? s.email.split('@')[0] : 'Student',
       email: s.email,
       degree: s.degree,
+      college: s.college_name || '—',
       collegeName: s.college_name,
       createdAt: s.created_at,
+      paid: paidStudentIdSet.has(s.id),
+      isPaid: paidStudentIdSet.has(s.id),
       status: s.status
     })),
     recentPayments: (recentPayments || []).map((p) => {
@@ -867,28 +884,85 @@ async function getAdminStats() {
 
 async function getAdminStudents({ search = '', status = 'ALL' } = {}) {
   const supabase = getClient();
-  let query = supabase.from('students').select('*').order('created_at', { ascending: false });
 
-  if (status !== 'ALL') {
-    query = query.eq('status', status);
+  // 1. Fetch student records and verified paid student IDs from enrollments and payments
+  const [
+    { data: students, error: studentsError },
+    { data: paidEnrollments, error: enrollmentsError },
+    { data: paidPayments, error: paymentsError }
+  ] = await Promise.all([
+    supabase.from('students').select('*').order('created_at', { ascending: false }),
+    supabase.from('enrollments').select('student_id').eq('status', 'PAID'),
+    supabase.from('payments').select('student_id').eq('status', 'PAID')
+  ]);
+
+  if (studentsError) {
+    throw new Error(`Failed to fetch students directory: ${studentsError.message}`);
   }
-  if (search) {
-    query = query.or(`email.ilike.%${search}%,college_name.ilike.%${search}%,degree.ilike.%${search}%`);
+  if (enrollmentsError) {
+    throw new Error(`Failed to query verified student enrollments: ${enrollmentsError.message}`);
+  }
+  if (paymentsError) {
+    throw new Error(`Failed to query verified student payments: ${paymentsError.message}`);
   }
 
-  const { data: students } = await query;
-  return (students || []).map((s) => ({
-    id: s.id,
-    email: s.email,
-    contactNumber: s.contact_number,
-    collegeName: s.college_name,
-    academicYear: s.academic_year,
-    degree: s.degree,
-    referralCode: s.referral_code,
-    status: s.status,
-    active: s.active,
-    createdAt: s.created_at
-  }));
+  // 2. Combine verified paid student IDs into a fast lookup Set
+  const paidStudentIds = new Set([
+    ...(paidEnrollments || []).map((e) => e.student_id),
+    ...(paidPayments || []).map((p) => p.student_id)
+  ].filter(Boolean));
+
+  // 3. Map student records with expected frontend fields and accurate paid status
+  const mapped = (students || []).map((s) => {
+    const isPaid = paidStudentIds.has(s.id);
+    const displayName = s.email ? s.email.split('@')[0] : 'Student';
+    return {
+      id: s.id,
+      name: displayName,
+      fullName: displayName,
+      email: s.email,
+      phone: s.contact_number || '',
+      contactNumber: s.contact_number || '',
+      college: s.college_name || '',
+      collegeName: s.college_name || '',
+      academicYear: s.academic_year,
+      degree: s.degree,
+      referralCode: s.referral_code,
+      status: s.status || 'ACTIVE',
+      active: s.status !== 'INACTIVE' && s.active !== false,
+      paid: isPaid,
+      isPaid,
+      createdAt: s.created_at
+    };
+  });
+
+  // 4. Apply status and search filtering
+  const q = String(search || '').trim().toLowerCase();
+  const filterStatus = String(status || 'ALL').toUpperCase();
+
+  return mapped.filter((st) => {
+    // Payment status filters
+    if (filterStatus === 'PAID' && !st.isPaid) return false;
+    if (filterStatus === 'UNPAID' && st.isPaid) return false;
+
+    // Account status filters (separate from payment status)
+    if (filterStatus === 'ACTIVE' && (st.status !== 'ACTIVE' || st.active === false)) return false;
+    if (filterStatus === 'INACTIVE' && (st.status === 'ACTIVE' && st.active !== false)) return false;
+
+    // Search query matching
+    if (q) {
+      const match =
+        (st.email && st.email.toLowerCase().includes(q)) ||
+        (st.name && st.name.toLowerCase().includes(q)) ||
+        (st.phone && st.phone.toLowerCase().includes(q)) ||
+        (st.college && st.college.toLowerCase().includes(q)) ||
+        (st.degree && st.degree.toLowerCase().includes(q)) ||
+        (st.referralCode && st.referralCode.toLowerCase().includes(q));
+      if (!match) return false;
+    }
+
+    return true;
+  });
 }
 
 async function toggleStudentStatus(studentId, adminEmail = 'admin@saturn.in', targetActive = undefined) {
@@ -1188,17 +1262,25 @@ async function getAdminStudentDetail(studentId) {
   const referrals = await getStudentReferrals(student.id);
   const referralSummary = await getStudentReferralSummary(student.id);
 
+  const displayName = student.email ? student.email.split('@')[0] : 'Student';
+
   return {
     student: {
       id: student.id,
+      name: displayName,
+      fullName: displayName,
       email: student.email,
+      phone: student.contactNumber || '',
       contactNumber: student.contactNumber,
+      college: student.collegeName || '',
       collegeName: student.collegeName,
       academicYear: student.academicYear,
       degree: student.degree,
       referralCode: student.referralCode,
       createdAt: student.createdAt,
       status: student.status || 'ACTIVE',
+      active: student.status !== 'INACTIVE' && student.active !== false,
+      paid: isPaid,
       isPaid
     },
     enrollment,

@@ -342,11 +342,11 @@
       } else {
         tbodyStudents.innerHTML = rec.map(st => `
           <tr>
-            <td><strong>${esc(st.name || '—')}</strong></td>
+            <td><strong>${esc(st.name || st.fullName || '—')}</strong></td>
             <td>${esc(st.email || '—')}</td>
-            <td>${esc(st.college || '—')}</td>
+            <td>${esc(st.college || st.collegeName || '—')}</td>
             <td>${fmtDate(st.createdAt)}</td>
-            <td>${st.paid ? '<span class="badge ok">Paid</span>' : '<span class="badge">Unpaid</span>'}</td>
+            <td>${(st.paid || st.isPaid) ? '<span class="badge ok">Paid</span>' : '<span class="badge">Unpaid</span>'}</td>
           </tr>
         `).join('');
       }
@@ -417,15 +417,16 @@
     const searchVal = (document.getElementById('students-search')?.value || '').toLowerCase().trim();
 
     const filtered = allStudents.filter(st => {
+      const isPaid = Boolean(st.paid || st.isPaid);
       // Filter status
-      if (currentStudentFilter === 'PAID' && !st.paid) return false;
-      if (currentStudentFilter === 'UNPAID' && st.paid) return false;
+      if (currentStudentFilter === 'PAID' && !isPaid) return false;
+      if (currentStudentFilter === 'UNPAID' && isPaid) return false;
       if (currentStudentFilter === 'ACTIVE' && st.active === false) return false;
       if (currentStudentFilter === 'INACTIVE' && st.active !== false) return false;
 
       // Search match
       if (searchVal) {
-        const text = [st.name, st.email, st.phone, st.college, st.degree].join(' ').toLowerCase();
+        const text = [st.name, st.fullName, st.email, st.phone, st.college, st.collegeName, st.degree].filter(Boolean).join(' ').toLowerCase();
         if (!text.includes(searchVal)) return false;
       }
       return true;
@@ -439,22 +440,24 @@
       return;
     }
 
-    tbody.innerHTML = filtered.map(st => `
+    tbody.innerHTML = filtered.map(st => {
+      const isPaid = Boolean(st.paid || st.isPaid);
+      return `
       <tr data-student-id="${esc(st.id)}">
         <td>
-          <strong>${esc(st.name || '—')}</strong><br>
+          <strong>${esc(st.name || st.fullName || '—')}</strong><br>
           <small class="fine">ID: ${esc(st.id)}</small>
         </td>
         <td>
           <a href="mailto:${esc(st.email)}">${esc(st.email)}</a><br>
-          <small class="fine">${esc(st.phone || 'No phone')}</small>
+          <small class="fine">${esc(st.phone || st.contactNumber || 'No phone')}</small>
         </td>
         <td>
-          <span>${esc(st.college || '—')}</span><br>
+          <span>${esc(st.college || st.collegeName || '—')}</span><br>
           <small class="fine">${esc(st.degree || '')} ${st.passoutYear ? '(' + esc(st.passoutYear) + ')' : ''}</small>
         </td>
         <td>${fmtDate(st.createdAt)}</td>
-        <td>${st.paid ? '<span class="badge ok">PAID</span>' : '<span class="badge">UNPAID</span>'}</td>
+        <td>${isPaid ? '<span class="badge ok">PAID</span>' : '<span class="badge">UNPAID</span>'}</td>
         <td>${statusBadge(st.active !== false ? 'ACTIVE' : 'INACTIVE', 'account')}</td>
         <td>
           <div class="admin-row-actions">
@@ -465,7 +468,8 @@
           </div>
         </td>
       </tr>
-    `).join('');
+    `;
+    }).join('');
   }
 
   function setupStudentsView() {
@@ -542,10 +546,11 @@
       const referrals = res.referrals || [];
       const referredBy = res.referredBy;
 
-      if (nameEl) nameEl.textContent = st.name || 'Student Profile';
+      const isPaid = Boolean(st.paid || st.isPaid);
+      if (nameEl) nameEl.textContent = st.name || st.fullName || 'Student Profile';
       if (paidBadge) {
-        paidBadge.className = 'badge ' + (st.paid ? 'ok' : '');
-        paidBadge.textContent = st.paid ? 'PAID ENROLLED' : 'UNPAID';
+        paidBadge.className = 'badge ' + (isPaid ? 'ok' : '');
+        paidBadge.textContent = isPaid ? 'PAID ENROLLED' : 'UNPAID';
       }
 
       contentEl.innerHTML = `
@@ -553,8 +558,8 @@
           <div class="card" style="padding:1rem;">
             <h4 style="margin:0 0 0.5rem;">Academic &amp; Contact Info</h4>
             <p><strong>Email:</strong> ${esc(st.email)}</p>
-            <p><strong>Phone:</strong> ${esc(st.phone || '—')}</p>
-            <p><strong>College:</strong> ${esc(st.college || '—')}</p>
+            <p><strong>Phone:</strong> ${esc(st.phone || st.contactNumber || '—')}</p>
+            <p><strong>College:</strong> ${esc(st.college || st.collegeName || '—')}</p>
             <p><strong>Degree / Branch:</strong> ${esc(st.degree || '—')}</p>
             <p><strong>Passout Year:</strong> ${esc(st.passoutYear || '—')}</p>
             <p><strong>Registered Date:</strong> ${fmtDate(st.createdAt)}</p>

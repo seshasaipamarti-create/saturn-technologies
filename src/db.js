@@ -1176,17 +1176,25 @@ function getAdminStudentDetail(studentId) {
   const referrals = getStudentReferrals(student.id);
   const referralSummary = getStudentReferralSummary(student.id);
 
+  const displayName = student.fullName || student.name || (student.email ? student.email.split('@')[0] : 'Student');
+
   return {
     student: {
       id: student.id,
+      name: displayName,
+      fullName: displayName,
       email: student.email,
+      phone: student.contactNumber || student.phone || '',
       contactNumber: student.contactNumber,
+      college: student.collegeName || student.college || '',
       collegeName: student.collegeName,
       academicYear: student.academicYear,
       degree: student.degree,
       referralCode: student.referralCode,
       createdAt: student.createdAt,
       status: student.status || 'ACTIVE',
+      active: student.status !== 'INACTIVE' && student.active !== false,
+      paid: isPaid,
       isPaid
     },
     enrollment,
