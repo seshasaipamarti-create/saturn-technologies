@@ -1,7 +1,7 @@
 {
   "_README": "EDIT THIS FILE to publish your real business details. Anything left empty ('') is NOT shown on the public website. Nothing here is a secret: secrets (API keys) go in Vercel environment variables, never in this file.",
 
-  "siteUrl": "https://websites-software-business-grow.vercel.app",
+  "siteUrl": "https://saturntechnologiesindia.tech",
 
   "company": {
     "legalName": "Saturn Technologies India Private Limited",
