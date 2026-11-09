@@ -23,7 +23,7 @@ const RATE_LIMIT_FILE = path.join(DATA_DIR, 'rate_limits.json');
 
 const COURSE_ID = 'java-full-stack';
 const COURSE_NAME = 'Java Full Stack Training Programme';
-const COURSE_FEE = 5000;
+const COURSE_FEE = 1;
 const COURSE_CURRENCY = 'INR';
 
 const REFERRAL_REWARD_AMOUNT = 1000;
